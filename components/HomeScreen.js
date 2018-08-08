@@ -37,9 +37,15 @@ export default class HomeScreen extends React.Component {
             <Text style={styles.text}> 
                 For the sleep deprieved, insomniacs, night owls, {"\n"} and the nappers
             </Text>
+
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Spots')}> 
                 <Text style={styles.touchableText}> NAP SPOTS </Text>
             </TouchableOpacity>
+
+            <TouchableOpacity> 
+                <Text style={styles.touchableText}> NAP TIPS </Text>
+            </TouchableOpacity>
+
         </LinearGradient>
     );
   }
@@ -47,21 +53,21 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
     title : {
-        fontFamily: 'monoton', 
-        fontSize: 47,
-        color: 'white',
         padding: 25,
+        fontSize: 47,
+        fontFamily: 'monoton', 
+        color: 'white',
     },
     text: {
-        color: '#d3d3d3',
-        fontSize: 14,
         padding: 20,
+        fontSize: 14,
+        color: '#d3d3d3',
         textAlign: 'center',
     },
     touchableText: {
-        color: '#d3d3d3',
         paddingTop: 40,
         fontSize: 18,
+        color: '#d3d3d3',
     },
     container1: {
         flex: 1,
@@ -69,12 +75,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     container2: {
-        margin: 7,
-        backgroundColor: '#262626',
         alignItems: 'center',
         justifyContent: 'center',
+        margin: 7,
         borderColor: 'white',
-        borderWidth: 1
+        borderWidth: 1,
+        backgroundColor: '#262626',
     },
     secondBorder: {
         borderColor: 'white',

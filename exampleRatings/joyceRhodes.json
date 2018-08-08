@@ -1,0 +1,17 @@
+{
+	"author": "Joyve Rhim",
+	"finalRating": 4.17,
+	"description": "A fine location for a nap. The table provided is higher than the seat of the chair so if used as a footrest, your legs may fall asleep. You may find yourself waking up to the sounds of people laving and entering the area.",
+	"comfort": {
+		"rating": 4.5,
+		"details": "Not sure if it's comfy or if I'm just dead tired but I KNOCKED out"
+	},
+	"location": {
+		"rating": 4,
+		"details": "Very quiet, but right next to a door"
+	},
+	"other": {
+		"rating": 4,
+		"details": "Big windows and sunlight, close to home"
+	}
+}

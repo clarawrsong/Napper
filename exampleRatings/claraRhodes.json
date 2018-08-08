@@ -1,0 +1,17 @@
+{
+	"author": "Clara Song",
+	"finalRating": 3.5,
+	"description": "A great place for a nap if at the right time. Do not nap here in the afternoon during popular class transition times!",
+	"comfort": {
+		"rating": 4.5,
+		"details": "Very comfortable and includes a place to rest your legs on a tiny table"
+	},
+	"location": {
+		"rating": 2,
+        "details": "The door right next to chair is very loud and often used by students entering and leaving Rhodes for classes."
+	},
+	"other": {
+		"rating": 4,
+		"details": "Nice and private with not much foot traffic."
+	}
+}

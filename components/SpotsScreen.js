@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Font, LinearGradient } from 'expo';
 
-export default class HomeScreen extends React.Component {
+export default class SpotsScreen extends React.Component {
 
   constructor() {
     super();
@@ -22,13 +22,24 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <LinearGradient 
-        colors={['#f5f7fa', '#bac4d3']} 
-        start={{ x: 0.1, y: 0.1 }}
+        colors={['#e8e8e8', '#7f8291']} 
         style={styles.container}>
       {
-        this.state.fontLoaded ? <Text style={{fontFamily: 'monoton'}} > SPOTS </Text> : null
+        this.state.fontLoaded ? 
+          <Text style={styles.title}> SPOTS </Text> : null
       }
-        
+      <TouchableOpacity>
+        <Text style={styles.university}> Cornell University </Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text style={styles.text}> Clark Hall </Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text style={styles.text}> Duffield Atrium </Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('Rhodes')}>
+        <Text style={styles.text}> Frank H. T. Rhodes Hall </Text>
+      </TouchableOpacity>
       </LinearGradient>
     );
   }
@@ -37,8 +48,21 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#fff',
+  },
+  title: {
+    padding: 25,
+    fontSize: 32,
+    fontFamily: 'monoton',
+  },
+  university: {
+    padding: 10,
+    fontSize: 22,
+  },
+  text: {
+    paddingTop: 10,
+    fontSize: 18,
+    color: '#525563'
   },
 });
