@@ -1,16 +1,19 @@
 {
-	"author": "Joyve Rhim",
+	"author": "Joyce Rhim",
 	"finalRating": 3.67,
 	"description": "Would still recommend at least once because we can all use more vitamin D. The couches are a worn - in kind of comfy, and there is a cafe located on the lower floor - perfect for a pre - nap snack or post - nap caffeine/",
 	"comfort": {
+		"category": "Comfort",
 		"rating": 4,
 		"details": "couch is especiall comfortable when curled up into a fetal position"
 	},
 	"location": {
+		"category": "Location",
 		"rating": 4,
 		"details": "lots of natural light and large windows"
 	},
 	"other": {
+		"category": "Other",
 		"rating": 3,
 		"details": "location is slightly far and very public"
 	}

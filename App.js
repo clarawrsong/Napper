@@ -21,6 +21,6 @@ const RootStack = createStackNavigator(
     Rhodes: RhodesScreen,
   },
   {
-    initialRouteName: 'Rhodes',
+    initialRouteName: 'Home',
   }
 );

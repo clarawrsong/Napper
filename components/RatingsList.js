@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
-import { Font } from 'expo';
 
 import Rate from './Rate';
 
@@ -13,7 +12,6 @@ export default class Ratings extends React.Component {
   }
 
   render() {
-      console.log(this.props.ratingsList)
     return (
       <ScrollView>
           {this.props.ratingsList.map(this.renderRatings)}
