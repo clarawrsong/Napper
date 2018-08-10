@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, SectionList } from 'react-native';
 import Stars from 'react-native-stars';
 
 export default class Rate extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             isExpanded: false,
             data: [],
@@ -16,44 +16,55 @@ export default class Rate extends React.Component {
         if (this.state.isExpanded) 
             this.setState({data: []})
         else 
-            this.setState({data: [rating.comfort, rating.location, rating.other]});
+            this.setState({data: [
+                {title:`Comfort - ${rating.comfort.rating}/5`, data:[rating.comfort]}, 
+                {title:`Location - ${rating.location.rating}/5`, data:[rating.location]},
+                {title:`Other - ${rating.other.rating}/5`, data:[rating.other]},
+            ]});
         
         this.setState({isExpanded: !this.state.isExpanded})
     }
 
   render() {
-    const {rating} = this.props
+    console.log("")
+    const {rating} = this.props;
+    const starDir = "../node_modules/react-native-stars/example-images/";
+    var author = (rating.author)? rating.author : "Anon.";
     return (
       <View style={styles.container}>
-        <Stars
-            display={rating.finalRating}
-            spacing={7}
-            count={5}
-            starSize={16}
-            backingColor='white'
-            fullStar={require('../node_modules/react-native-stars/example-images/starFilled.png')}
-            emptyStar={require('../node_modules/react-native-stars/example-images/starEmpty.png')}
-            halfStar={require('../node_modules/react-native-stars/example-images/starHalf.png')}/>
-        <Text style={styles.text}>{rating.description}</Text>
-        <Text style={styles.author}> - {rating.author}</Text>
+        <Text style={styles.ratingText}> {
+            <Stars
+                display={rating.finalRating}
+                spacing={6}
+                count={5}
+                starSize={16}
+                backingColor='white'
+                fullStar={require(starDir + 'starFilled.png')}
+                emptyStar={require(starDir + 'starEmpty.png')}
+                halfStar={require(starDir + 'starHalf.png')}/>}
+            {rating.finalRating} / 5
+        </Text>
+        {rating.description? 
+            <Text style={styles.text}>{rating.description}</Text> : null}
+        <Text style={styles.author}>- {author}</Text>
         <TouchableOpacity onPress={() => this.handlePress()}>
             <Text style={{textAlign: 'center', color:'#bcb7ad'}}>
                 {this.state.isExpanded? "press to hide" : "press to expand"}
             </Text>
         </TouchableOpacity>
-        <FlatList 
+        <SectionList 
             style={styles.details}
             ref='more'
-            data={this.state.data}
-            renderItem={({item}) => 
-            <View>
+            sections={this.state.data}
+            renderSectionHeader={({section}) =>
                 <Text style={[styles.category, {fontWeight: 'bold'}]}>
-                    {item.category} - {item.rating}/5
+                    {section.title}
                 </Text>
+            }
+            renderItem={({item}) => 
                 <Text style={styles.detailsText}>{item.details}</Text>
-            </View>
-            }>
-        </FlatList>
+            }
+            keyExtractor={(item, index) => index}/>
       </View>
     );
   }
@@ -67,10 +78,13 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     backgroundColor: 'white',
   },
-  text: {
-    padding: 7,
-    alignSelf: 'flex-start',
+  ratingText: {
+    paddingLeft: 6,
     fontSize: 15,
+    fontWeight:'bold'
+  },
+  text: {
+    padding: 5,
   },
   author: {
     paddingRight: 8,

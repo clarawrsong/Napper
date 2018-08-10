@@ -2,22 +2,26 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Font, LinearGradient } from 'expo';
 
-import Input from './Input';
 import RatingsList from './RatingsList';
-import joyceRhodes from '../exampleRatings/joyceRhodes'
-import  claraRhodes from '../exampleRatings/claraRhodes'
+
 
 export default class RhodesScreen extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       fontLoaded: false,
-      ratingsList: [joyceRhodes, claraRhodes],
+      modalPresent: false,
+      ratingsList: props.navigation.getParam('ratingsList', null),
     }
   }
 
-  addRating = () => {
+  toggleModal = () => {
+    this.setState({modalPresent: !this.state.modalPresent})
+  }
 
+  addRating = (submission) => {
+    const {ratingsList} = this.state;
+    this.setState({ratingsList: [submission,...ratingsList]});
   }
 
   async componentDidMount() {
@@ -29,18 +33,22 @@ export default class RhodesScreen extends React.Component {
   }
 
   render() {
-      console.log(this.state.ratingsList)
+    const locationTitle = this.props.navigation.getParam('title', "")
+    const locationDescription = this.props.navigation.getParam('description', "")
     return (
       <LinearGradient 
         colors={['#fdfcfb', '#e2d1c3']} 
         style={styles.container}>
-      {
-        this.state.fontLoaded ? 
-          <Text style={styles.title}> Frank H. T. Rhodes Hall </Text> : null
+      {this.state.fontLoaded ? 
+          <Text style={styles.title}>{locationTitle}</Text> : null
       }
-        <Text style={styles.text}> Entrance to Rhodes from Duffield (?th floor) </Text>
-        <Input />
-        <RatingsList ratingsList={this.state.ratingsList}/>
+        <Text style={styles.text}>{locationDescription}</Text>
+        
+        <RatingsList 
+          ratingsList={this.state.ratingsList} 
+          modalPresent={this.state.modalPresent}
+          toggleModal={this.toggleModal}
+          addRating={this.addRating}/>
       </LinearGradient>
     );
   }

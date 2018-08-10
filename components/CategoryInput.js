@@ -4,6 +4,7 @@ import Stars from 'react-native-stars';
 
 export default class CategoryInput extends React.Component {
   render() {
+    const starDir = "../node_modules/react-native-stars/example-images/";
     const {name} = this.props;
     return (
       <View style={styles.container}>
@@ -16,13 +17,14 @@ export default class CategoryInput extends React.Component {
                 spacing={6}
                 starSize={18}
                 count={5}
-                fullStar={require('../node_modules/react-native-stars/example-images/starFilled.png')}
-                emptyStar={require('../node_modules/react-native-stars/example-images/starEmpty.png')}
-                halfStar={require('../node_modules/react-native-stars/example-images/starHalf.png')}/>
+                fullStar={require(starDir + 'starFilled.png')}
+                emptyStar={require(starDir + 'starEmpty.png')}
+                halfStar={require(starDir + 'starHalf.png')}/>
         </View>
         <TextInput 
             style={styles.textInput}
             placeholder={`optional ${name} description`}
+            maxLength={150}
             multiline={true}
             onChangeText={(text) => this.props.onChange(text,name,"details")}
         />

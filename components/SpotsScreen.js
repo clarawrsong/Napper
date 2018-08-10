@@ -2,6 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Font, LinearGradient } from 'expo';
 
+import joyceClark from '../exampleRatings/joyceClark'
+import joyceDuff from '../exampleRatings/joyceDuff'
+import joyceRhodes from '../exampleRatings/joyceRhodes'
+import claraRhodes from '../exampleRatings/claraRhodes'
+
 export default class SpotsScreen extends React.Component {
 
   constructor() {
@@ -28,18 +33,43 @@ export default class SpotsScreen extends React.Component {
         this.state.fontLoaded ? 
           <Text style={styles.title}> SPOTS </Text> : null
       }
-      <TouchableOpacity>
+
         <Text style={styles.university}> Cornell University </Text>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <Text style={styles.text}> Clark Hall </Text>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <Text style={styles.text}> Duffield Atrium </Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('Rhodes')}>
-        <Text style={styles.text}> Frank H. T. Rhodes Hall </Text>
-      </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => 
+          this.props.navigation.navigate('Ratings', {
+            title:'Clark Hall', 
+            description:'Next to the physics learning center (2nd floor)',
+            ratingsList: [joyceClark]
+            })}>
+          <Text style={styles.text}> Clark Hall </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => 
+          this.props.navigation.navigate('Ratings', {
+              title:'Duffield Hall', 
+              description:'Directly above the entrance (3rd? floor)',
+              ratingsList: [joyceDuff]
+              })}>
+          <Text style={styles.text}> Duffield Hall </Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity onPress={() => 
+          this.props.navigation.navigate('Ratings', {
+            title:'Frank H. T. Rhodes Hall', 
+            description:'Entrance to Rhodes from Duffield (? floor)',
+            ratingsList: [joyceRhodes, claraRhodes]
+            })}>
+          <Text style={styles.text}> Frank H. T. Rhodes Hall </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => 
+          this.props.navigation.navigate('Ratings', {
+              title:'Sage', 
+              description:'Library',
+              })}>
+          <Text style={styles.text}> Sage Hall </Text>
+        </TouchableOpacity>
       </LinearGradient>
     );
   }

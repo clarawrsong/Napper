@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, TextInput, View, ScrollView, TouchableOpacity, Button } from 'react-native';
 import Modal from "react-native-modal";
 import Stars from 'react-native-stars';
 
@@ -7,10 +7,9 @@ import CategoryInput from './CategoryInput';
 
 export default class Input extends React.Component {
     state = {
-        isModalVisible: false,
         submission: {
             author: "",
-            finalRating: null,
+            finalRating: 2.5,
             description: "",
             comfort: {
                 category: "Comfort",
@@ -32,13 +31,16 @@ export default class Input extends React.Component {
 
     onChange = (text, key1, key2) => {
         this.setSubmission(text, key1, key2);
+        this.calculateOverallRating();
     }
 
     calculateOverallRating = () => {
         var newFinalRating
-        var ratings = [this.state.comfort.rating, this.state.location.rating, this.state.other.rating];
-        const [x,y,z] = ratings;
-        newFinalRating = ((x+y+z)/3).toFixed(2);
+        const x = this.state.submission.comfort.rating;
+        const y = this.state.submission.location.rating;
+        const z = this.state.submission.other.rating;
+        newFinalRating = parseFloat(((x+y+z)/3).toFixed(2));
+
         this.setSubmission(newFinalRating,"finalRating")
     }
 
@@ -52,19 +54,14 @@ export default class Input extends React.Component {
         this.setState({submission: newSubmission})
     }
 
-    toggleModal = () => {
-        this.setState({isModalVisible: !this.state.isModalVisible})
-    }
-
   render() {
-      //fix width of add review
+      const {addRating} = this.props;
+      const {modalPresent} = this.props;
+      const {toggleModal} = this.props;
     return (
-      <View style={styles.container}>
-        <TouchableOpacity onPress={() => this.toggleModal()}>
-            <Text style={styles.addText}> + add review</Text>
-        </TouchableOpacity>
         <Modal 
-            isVisible={this.state.isModalVisible}
+            style={styles.container}
+            isVisible={modalPresent}
             animationIn="zoomInDown"
             animationOut="zoomOutUp"
             animationInTiming={1000}
@@ -73,33 +70,42 @@ export default class Input extends React.Component {
             backdropTransitionOutTiming={1000}
             scrollOffsetMax={400}
             >
-            <View style={styles.modalContainer}>
+            <ScrollView style={styles.modalContainer}>
                 <TextInput 
                     style={styles.textInput}
                     placeholder="Name"
-                    onChangeText={(text) => this.onChange(text,"name")}
+                    maxLength={30}
+                    onChangeText={(text) => this.onChange(text,"author")}
                 />
                 <TextInput 
                     style={styles.textInput}
                     placeholder="Enter main description"
+                    maxLength={250}
                     multiline={true}
                     onChangeText={(text) => this.onChange(text,"description")}
                 />
                 <CategoryInput name="comfort" onChange={this.onChange} />
                 <CategoryInput name="location" onChange={this.onChange} />
                 <CategoryInput name="other" onChange={this.onChange} />
-            </View>
-            <Button title={"Submit"}/>
-            <Button title={"Cancel"} onPress={() => this.toggleModal()} />
+            </ScrollView>
+            <TouchableOpacity 
+                onPress={() => {addRating(this.state.submission); toggleModal()}} 
+                style={styles.button}>
+                <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+                onPress={() => toggleModal()} 
+                style={styles.button}>
+                <Text style={styles.buttonText}>Cancel</Text>
+            </TouchableOpacity>
         </Modal>
-      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   modalContainer: {
-    height: 400,
+    marginTop: 115,
     borderRadius: 20, 
     padding: 20,
     backgroundColor: 'white',
@@ -111,5 +117,21 @@ const styles = StyleSheet.create({
   addText: {
     paddingRight: 15,
     textAlign: 'right'
+  },
+  button: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginTop: 7,
+    height: 40,
+    width: 200,
+    borderRadius: 10,
+    borderColor: "#0078D7",
+    borderWidth: 1,
+    backgroundColor: 'white'
+  },
+  buttonText: {
+    fontSize: 16,
+    textAlign:'center',
+    color: '#0078D7'
   }
 });
